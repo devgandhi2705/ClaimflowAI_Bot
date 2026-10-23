@@ -1,0 +1,48 @@
+# ClaimFlow AI - Expense Policy (policy-as-code)
+# Finance can change these values without touching any Python code.
+# Restart the bot (or send /reloadpolicy) after editing.
+
+company: ClaimFlow Demo Pvt. Ltd.
+base_currency: INR
+
+auto_approve_limit: 2000        # claims at or below this amount (and low risk) are approved automatically
+max_receipt_age_days: 30        # older receipts are rejected
+min_ai_confidence: 0.70         # below this the claim goes to the manual review queue
+
+# Per-claim limits by category
+category_limits:
+  meals: 1500
+  travel: 10000
+  lodging: 8000
+  fuel: 3000
+  office_supplies: 5000
+  other: 2000
+
+hard_limit_multiplier: 3        # amount > 3x category limit -> auto reject
+
+# Non-reimbursable items (matched against line items and vendor)
+prohibited_keywords:
+  - alcohol
+  - beer
+  - wine
+  - whisky
+  - whiskey
+  - vodka
+  - rum
+  - liquor
+  - cigarette
+  - tobacco
+
+# Risk points added by each flag (score is capped at 100)
+risk_weights:
+  over_category_limit: 35
+  prohibited_item: 25
+  weekend_expense: 10
+  round_amount: 10
+  foreign_currency: 10
+  suspected_duplicate: 40
+  low_confidence_factor: 40     # multiplied by (1 - AI confidence)
+
+routing:
+  auto_approve_max_risk: 30     # risk below this AND amount <= auto_approve_limit -> auto approve
+  auto_reject_min_risk: 85      # risk at/above this -> auto reject

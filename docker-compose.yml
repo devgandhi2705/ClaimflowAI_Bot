@@ -1,0 +1,19 @@
+# Two services sharing one data volume: the Telegram automation worker and the ops dashboard.
+services:
+  bot:
+    build: .
+    command: python -m app.bot
+    env_file: .env
+    volumes: [claimflow-data:/app/data, claimflow-logs:/app/logs]
+    restart: unless-stopped
+  dashboard:
+    build: .
+    command: streamlit run dashboard/dashboard.py --server.port 8501 --server.address 0.0.0.0
+    env_file: .env
+    ports: ["8501:8501"]
+    volumes: [claimflow-data:/app/data, claimflow-logs:/app/logs]
+    depends_on: [bot]
+    restart: unless-stopped
+volumes:
+  claimflow-data:
+  claimflow-logs:

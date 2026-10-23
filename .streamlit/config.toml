@@ -1,0 +1,26 @@
+[theme]
+base = "light"
+primaryColor = "#2a78d6"
+backgroundColor = "#f5f6f8"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#0f172a"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
+baseRadius = "12px"
+borderColor = "#e4e7ec"
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#0f172a"
+secondaryBackgroundColor = "#1e293b"
+textColor = "#e2e8f0"
+borderColor = "#334155"
+
+[client]
+toolbarMode = "minimal"
+
+[server]
+runOnSave = true
+headless = true          # no first-run email prompt; run_dashboard.bat opens the browser
+
+[browser]
+gatherUsageStats = false
